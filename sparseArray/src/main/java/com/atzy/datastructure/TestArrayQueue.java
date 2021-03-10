@@ -11,6 +11,7 @@ public class TestArrayQueue {
             System.out.println("1:showQueue");
             System.out.println("2:addQueue");
             System.out.println("3:popQueue");
+            System.out.println("0:getSize");
             System.out.println("4:exit");
             int next = scanner.nextInt();
             switch (next){
@@ -29,6 +30,9 @@ public class TestArrayQueue {
                 case 4:
                     loop = false;
                     break;
+                case 0:
+                    int length = queue.getSize();
+                    System.out.println("队列当前有效个数：" + length);
             }
         }
     }

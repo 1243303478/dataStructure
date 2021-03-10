@@ -36,7 +36,7 @@ public class ArrayQueue {
      * @return boolean
      */
     public boolean isFull(){
-        return rear == max_size -1;
+        return (rear+1) % max_size ==  front;
     }
 
     /**
@@ -55,7 +55,7 @@ public class ArrayQueue {
         if(isFull()){ //当前指针指向最大值 队列已满了
             System.out.println("当前队列已满了,无法插入");
         }else{
-            rear++;
+            rear = (rear + 1) % max_size;
             arr[rear] = value;
         }
     }
@@ -69,10 +69,18 @@ public class ArrayQueue {
             System.out.println("当前队列为空,没有数据可以取出");
             return -1;
         }
-        front++;
+//        front++;
+        front = (front + 1) % max_size;
         return arr[front];
     }
 
+    /**
+     * 获取当前队列有效个数
+     * @return int
+     */
+    public int getSize(){
+        return (rear + max_size - front) % max_size;
+    }
     /**
      * 获取当前队列中的第一条数据
      * @return int
