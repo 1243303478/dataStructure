@@ -3,7 +3,6 @@ package com.atzy.datastructure;
 public class HeroNodeDemo {
     public static void main(String[] args) {
         HeroNode head = new HeroNode(0, "", ""); //头节点不需要存储什么信息 所以设空
-
         LinkedList list = new LinkedList(head);
         list.list();
 
@@ -29,6 +28,9 @@ public class HeroNodeDemo {
 
         System.out.println("链表的节点个数:");
         System.out.println(LinkedList.getSize(head));
+
+        System.out.println("获取倒数第二个节点信息");
+        System.out.println(LinkedList.getLastNumNodeInfo(head, 4));
     }
 }
 
@@ -179,5 +181,23 @@ class LinkedList{
             temp = temp.next;
         }
         return count;
+    }
+
+    /**
+     * 新浪面试题 查询单链表中的 倒数第k个节点信息
+     * 思路: 倒数第 2个 相当于总数量减2 遍历到这个节点
+     *  10 - 2 = 8 等于第八个节点信息
+     */
+    public static HeroNode getLastNumNodeInfo(HeroNode head,int k){
+        //头节点的下一个为空 说明链表是空
+        if(head.next == null){
+            return null;
+        }
+        HeroNode temp = head.next; //指向头节点下的 第一个真实节点
+        int size = getSize(head);
+        for (int i = 0; i < size - k; i++) {
+            temp = temp.next;
+        }
+        return temp;
     }
 }
