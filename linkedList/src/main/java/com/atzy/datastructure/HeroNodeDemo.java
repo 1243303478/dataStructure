@@ -26,6 +26,9 @@ public class HeroNodeDemo {
         list.addNodeOrder(new HeroNode(3, "吴用", "智多星"));
         System.out.println("最终结果-------------");
         list.list();
+
+        System.out.println("链表的节点个数:");
+        System.out.println(LinkedList.getSize(head));
     }
 }
 
@@ -157,5 +160,24 @@ class LinkedList{
         }else{
             System.out.printf("没有找到%d编号的节点数据",heroNode.no);
         }
+    }
+
+    /**
+     * 通过head头节点 获取单链中一共有多少个节点
+     * @param head
+     * @return
+     */
+    public static int getSize(HeroNode head){
+        if(head.next == null){
+            System.out.println("链表中无数据~~~");
+            return 0;
+        }
+        HeroNode temp = head;
+        int count = 0;
+        while (temp.next != null) {
+            count++;
+            temp = temp.next;
+        }
+        return count;
     }
 }
