@@ -29,8 +29,12 @@ public class HeroNodeDemo {
         System.out.println("链表的节点个数:");
         System.out.println(LinkedList.getSize(head));
 
-        System.out.println("获取倒数第二个节点信息");
-        System.out.println(LinkedList.getLastNumNodeInfo(head, 4));
+        /*System.out.println("获取倒数第二个节点信息");
+        System.out.println(LinkedList.getLastNumNodeInfo(head, 4));*/
+
+        System.out.println("reverse分割线----------------");
+        LinkedList.reverseLikedList(head);
+        list.list();
     }
 }
 
@@ -200,4 +204,27 @@ class LinkedList{
         }
         return temp;
     }
+    /**
+     * 单链表的反转 [腾讯面试题]
+     * 画图在记事本
+     */
+    public static void reverseLikedList(HeroNode head){
+        if(head.next == null){
+            System.out.println("当前链表为空哦~~~~");
+            return;
+        }
+        HeroNode temp = head.next;
+
+        //定义一个新的节点
+        HeroNode cur = null;
+        HeroNode next = null;
+        while (temp != null) {
+            next = temp.next; //定义一个next 可以让循环知道下一次该指向的节点
+            temp.next = cur;//让当前节点的next指向上一次遍历的节点 cur
+            head.next = temp;//head的next永远指向最新遍历到的值
+            cur = temp; //让当前节点等于现在已经修改过的节点 就不会有next了
+            temp = next;//temp指向真正的下一个节点
+        }
+    }
+
 }
