@@ -1,5 +1,7 @@
 package com.atzy.datastructure;
 
+import java.util.Stack;
+
 public class LinkedList2 {
 
     HeroNode2 head;
@@ -190,6 +192,33 @@ public class LinkedList2 {
             head.next = temp;//head的next永远指向最新遍历到的值
             cur = temp; //让当前节点等于现在已经修改过的节点 就不会有next了
             temp = next;//temp指向真正的下一个节点
+        }
+    }
+
+    /**
+     * 在不打乱数据结构的情况下 使链表反向输出出来结果
+     * @param head
+     */
+    public static void reversePrint(HeroNode2 head){
+        //利用java栈的特性来达到反向打印的需求
+        //栈的先进后出特性
+        if(head.next == null){
+            System.out.println("当前数组为空哦~~~");
+            return;
+        }
+        HeroNode2 temp = head.next;
+        Stack<Integer> ints = new Stack<Integer>();
+        while (temp != null){
+
+            /**
+             * 将当前链表的编号放入栈中
+             */
+            ints.push(temp.no);
+            temp = temp.next;
+        }
+        //遍历栈 打印栈中数据
+        while (!ints.isEmpty()){//栈的最顶端不为空则继续遍历
+            System.out.println(ints.pop());
         }
     }
 }

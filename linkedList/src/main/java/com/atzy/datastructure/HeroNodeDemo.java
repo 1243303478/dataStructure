@@ -35,6 +35,9 @@ public class HeroNodeDemo {
         System.out.println("reverse分割线----------------");
         LinkedList2.reverseLikedList(head);
         list.list();
+
+        System.out.println("反向打印分割线-----------------");
+        LinkedList2.reversePrint(head);
     }
 }
 
