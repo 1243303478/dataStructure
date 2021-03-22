@@ -1,47 +1,10 @@
 package com.atzy.datastructure;
 
-public class HeroNodeDemo {
-    public static void main(String[] args) {
-        HeroNode2 head = new HeroNode2(0, "", ""); //头节点不需要存储什么信息 所以设空
-        LinkedList2 list = new LinkedList2(head);
-        list.list();
+public class LinkedList2 {
 
-        list.addNode(new HeroNode2(1, "宋江", "及时雨"));
-        list.addNode(new HeroNode2(2, "卢俊义", "玉麒麟"));
-        list.addNode(new HeroNode2(3, "吴用", "智多星"));
-        list.list();
-        System.out.println("--------------分割线");
-        list.update(new HeroNode2(2, "小卢", "玉麒麟~~~~"));
-        list.list();
-        System.out.println("--------------分割线");
-        list.delete(new HeroNode2(1, "小卢", "玉麒麟~~~~"));
-        list.list();
+    HeroNode2 head;
 
-        System.out.println("--------------分割线 顺序插入");
-        list.addNodeOrder(new HeroNode2(4, "卢俊义", "玉麒麟"));
-        list.list();
-        list.addNodeOrder(new HeroNode2(1, "宋江", "及时雨"));
-        list.addNodeOrder(new HeroNode2(2, "林冲", "豹子头"));
-        list.addNodeOrder(new HeroNode2(3, "吴用", "智多星"));
-        System.out.println("最终结果-------------");
-        list.list();
-
-        System.out.println("链表的节点个数:");
-        System.out.println(LinkedList2.getSize(head));
-
-        /*System.out.println("获取倒数第二个节点信息");
-        System.out.println(LinkedList.getLastNumNodeInfo(head, 4));*/
-
-        System.out.println("reverse分割线----------------");
-        LinkedList2.reverseLikedList(head);
-        list.list();
-    }
-}
-
-class LinkedList{
-    HeroNode head;
-
-    public LinkedList(HeroNode head) {
+    public LinkedList2(HeroNode2 head) {
         this.head = head;
     }
 
@@ -49,10 +12,10 @@ class LinkedList{
      * 插入新的节点到链表尾部
      * @param newHeroNode
      */
-    public void addNode(HeroNode newHeroNode){
+    public void addNode(HeroNode2 newHeroNode){
         //先遍历所有节点信息
         //因为头结点不能动 所以用一个临时变量存储节点信息
-        HeroNode temp = head;
+        HeroNode2 temp = head;
         while (true){
             if(temp.next == null) {
                 //说明链表已经遍历结束
@@ -60,16 +23,17 @@ class LinkedList{
             }
             temp = temp.next;
         }
+        newHeroNode.pre = temp;
         temp.next = newHeroNode;
     }
     /**
      * 插入新的节点到链表尾部 [按顺序插入]
      * @param heroNode
      */
-    public void addNodeOrder(HeroNode heroNode){
+    public void addNodeOrder(HeroNode2 heroNode){
         //先遍历所有节点信息
         //因为头结点不能动 所以用一个临时变量存储节点信息
-        HeroNode temp = head;
+        HeroNode2 temp = head;
         boolean flag = false;
         while (true){
             if(temp.next == null) {
@@ -89,6 +53,7 @@ class LinkedList{
             return;
         }
         heroNode.next = temp.next;
+        heroNode.pre = temp;
         temp.next = heroNode;
     }
 
@@ -100,7 +65,7 @@ class LinkedList{
             System.out.println("当前链表中无数据~~~");
             return;
         }
-        HeroNode temp = head;
+        HeroNode2 temp = head;
         while (true){
             if(temp.next == null) {
                 //说明链表已经遍历结束
@@ -116,13 +81,13 @@ class LinkedList{
      * @param newHeroNode
      * @return boolean
      */
-    public void update(HeroNode newHeroNode){
+    public void update(HeroNode2 newHeroNode){
         if(head.next == null){
             System.out.println("当前链表中无数据~~~");
             return;
         }
         boolean flag = false;
-        HeroNode temp = head;
+        HeroNode2 temp = head;
         while (true){
             if(temp.next == null) {
                 //说明链表已经遍历结束
@@ -142,14 +107,14 @@ class LinkedList{
         }
     }
 
-    public void delete(HeroNode heroNode){
+    public void delete(HeroNode2 heroNode){
         if(head.next == null){
             System.out.println("当前链表中无数据~~~");
             return;
         }
         //删除对应的节点信息 将找到的节点的next往后移
         boolean flag = false;
-        HeroNode temp = head;
+        HeroNode2 temp = head;
         while (true){
             if(temp.next == null) {
                 //说明链表已经遍历结束
@@ -162,6 +127,7 @@ class LinkedList{
             temp = temp.next;
         }
         if(flag){
+            temp.next.pre = temp.pre;
             temp.next = temp.next.next;//将找到的节点的上一节点的next指向需要删除节点的next
         }else{
             System.out.printf("没有找到%d编号的节点数据",heroNode.no);
@@ -173,12 +139,12 @@ class LinkedList{
      * @param head
      * @return
      */
-    public static int getSize(HeroNode head){
+    public static int getSize(HeroNode2 head){
         if(head.next == null){
             System.out.println("链表中无数据~~~");
             return 0;
         }
-        HeroNode temp = head;
+        HeroNode2 temp = head;
         int count = 0;
         while (temp.next != null) {
             count++;
@@ -192,12 +158,12 @@ class LinkedList{
      * 思路: 倒数第 2个 相当于总数量减2 遍历到这个节点
      *  10 - 2 = 8 等于第八个节点信息
      */
-    public static HeroNode getLastNumNodeInfo(HeroNode head,int k){
+    public static HeroNode2 getLastNumNodeInfo(HeroNode2 head,int k){
         //头节点的下一个为空 说明链表是空
         if(head.next == null){
             return null;
         }
-        HeroNode temp = head.next; //指向头节点下的 第一个真实节点
+        HeroNode2 temp = head.next; //指向头节点下的 第一个真实节点
         int size = getSize(head);
         for (int i = 0; i < size - k; i++) {
             temp = temp.next;
@@ -208,16 +174,16 @@ class LinkedList{
      * 单链表的反转 [腾讯面试题]
      * 画图在记事本
      */
-    public static void reverseLikedList(HeroNode head){
+    public static void reverseLikedList(HeroNode2 head){
         if(head.next == null){
             System.out.println("当前链表为空哦~~~~");
             return;
         }
-        HeroNode temp = head.next;
+        HeroNode2 temp = head.next;
 
         //定义一个新的节点
-        HeroNode cur = null;
-        HeroNode next = null;
+        HeroNode2 cur = null;
+        HeroNode2 next = null;
         while (temp != null) {
             next = temp.next; //定义一个next 可以让循环知道下一次该指向的节点
             temp.next = cur;//让当前节点的next指向上一次遍历的节点 cur
@@ -226,5 +192,4 @@ class LinkedList{
             temp = next;//temp指向真正的下一个节点
         }
     }
-
 }
