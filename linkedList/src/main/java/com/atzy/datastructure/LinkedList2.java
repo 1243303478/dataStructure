@@ -216,7 +216,7 @@ public class LinkedList2 {
             ints.push(temp.no);
             temp = temp.next;
         }
-        //遍历栈 打印栈中数据
+        //遍 历栈 打印栈中数据
         while (!ints.isEmpty()){//栈的最顶端不为空则继续遍历
             System.out.println(ints.pop());
         }
