@@ -17,7 +17,7 @@ class LinkedListBoy{
 
     /**
      * 给环形链表中添加指定数量的节点
-     * @param num
+     * @param num 为链表中增加num个节点
      */
     public static void addNumBoy(int num){
         if(num < 1){
