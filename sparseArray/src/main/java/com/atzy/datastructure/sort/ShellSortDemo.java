@@ -12,7 +12,7 @@ public class ShellSortDemo {
         /*int[] arr = {8,9,1,7,2,3,5,4,6,0};
         System.out.println("排序前~~~~~~~");
         System.out.println(Arrays.toString(arr));
-        shellSort(arr);*/
+        shellSort2(arr);*/
         int[] arr = new int[80000];
         for (int i = 0; i < 80000; i++) {
             arr[i] = (int)(Math.random() * 80000);
@@ -22,7 +22,7 @@ public class ShellSortDemo {
 
         System.out.println(format.format(date));
 
-        shellSort(arr);
+        shellSort2(arr);
 
 
         Date date2 = new Date();
@@ -93,6 +93,35 @@ public class ShellSortDemo {
         }
         System.out.println("第3轮排序后~~~~");
         System.out.println(Arrays.toString(arr));*/
+    }
 
+    /**
+     * 希尔排序算法 - 移位法
+     * @param arr 待排序的数组
+     */
+    public static void shellSort2(int[] arr){
+        /**
+         * 增量gap 并逐步缩小的增量
+         * 通过gap分组 每次排序后 最小的值肯定会往前面移动
+         * 然后使用简单插入排序 判断当前的值小于前面的值没有 如果小于则移动到小于的数的位置
+         * 一直这样移动 最后元素就会到自己的位置 因为最后增量为1 每次循环都是前一个位置的比较
+         */
+        for (int gap = arr.length/2; gap > 0 ; gap/=2) {
+            //从第gap个元素 直接对所在元素进行插入排序
+            for (int i = gap; i <arr.length; i++) {
+                int j = i;
+                int value = arr[j];
+                //当前数 小于前面的数
+                if(arr[j] < arr[j-gap]){
+                    while (j-gap >= 0 && value < arr[j-gap]){
+                        arr[j] = arr[j-gap];
+                        j -= gap;
+                    }
+                    arr[j] = value;
+                }
+            }
+        }
+      /*  System.out.println("排序后~~~");
+        System.out.println(Arrays.toString(arr));*/
     }
 }
