@@ -1,66 +1,76 @@
 package com.atzy.datastructure.sort;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
-/**
- * 快速排序算法 demo
- */
 public class FastSortDemo {
     public static void main(String[] args) {
-        int[] arr = {-8,3,0,-567,101,9};
-        System.out.println("排序前~~~~~");
-        System.out.println(Arrays.toString(arr));
+//        int[] arr = {-3,-567,0,639,33,12};
+        int[] arr = new int[8000000];
+        for (int i = 0; i < 8000000; i++) {
+            arr[i] = (int)(Math.random() * 80000);
+        }
+        Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-d H:m:s");
+
+        System.out.println(format.format(date));
+
         fastSort(arr,0,arr.length-1);
-        System.out.println("排序后");
-        System.out.println(Arrays.toString(arr));
+
+
+        Date date2 = new Date();
+        System.out.println(format.format(date2));
+
+
+        /*System.out.println("排序前---="+ Arrays.toString(arr));
+        fastSort(arr,0,arr.length-1);
+
+        System.out.println("排序后----="+Arrays.toString(arr));*/
     }
 
     /**
-     * 快速排序算法实现
+     *  快速排序算法
      * @param arr 待排序的数组
-     * @param left 从数组的左边第几个开始
-     * @param right 从数组的右边第几个元素开始排序
+     * @param left
+     * @param right
      */
     private static void fastSort(int[] arr,int left,int right){
-        int middle = arr[(left + right) / 2];
+        int middle = arr[(left+right)/2];
         int l = left;
         int r = right;
 
-        //临时变量
         int temp = 0;
-        //从中间开始找 左边的大于自己的数 右边小于自己的数 交换位置
-        while (l < r){
-            //从中间数的左边找 一直找到大于中间数的值
-            while (arr[l] < middle){
-                l += 1;
-                /*temp = arr[middle + 1];
-                arr[middle+1] = arr[l];
-                arr[l] = temp;*/
+        while (l<r){
+            //找到左边比自己大的值
+            while ( arr[l] < middle){
+                l++;
             }
-            //一直在中间值的右边找 找到小于当前数的才退出
-            while (arr[r] > middle){
-                r -= 1;
+            while ( arr[r] > middle){
+                r--;
             }
-            //交换
+            if(l >= r){
+                break;
+            }
+            //交换两个值的位置
             temp = arr[l];
             arr[l] = arr[r];
             arr[r] = temp;
 
-            //如果交换完发现arr[l] 与middle中间值相等 则后移一位
+            //交换完后如果当前值等于中间值 则后移或前移一位
             if(arr[l] == middle){
                 r-=1;
             }
-            //如果交换完发现arr[r] 与middle中间值相等 则前移一位
             if(arr[r] == middle){
                 l+=1;
             }
         }
-        //如果左边边界 == 右边边界 必须l++ r-- 否则栈溢出
+        //递归左边的数
         if(l == r){
-            l++;
-            r--;
+            l += 1;
+            r -= 1;
         }
-        if(left<r){
+        if (left < r){
             fastSort(arr,left,r);
         }
         if(right > l){
